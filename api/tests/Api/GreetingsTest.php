@@ -8,9 +8,12 @@ class GreetingsTest extends ApiTestCase
 {
     public function testCreateGreeting(): void
     {
-        static::createClient()->request('POST', '/greetings', [
+        static::createClient()->request('POST', '/students', [
             'json' => [
-                'name' => 'Kévin',
+                'name' => 'Kevin',
+                'surName' => 'Bacon',
+                'address' => '72 boulevard davout',
+                'postalCode' => 75020,
             ],
             'headers' => [
                 'Content-Type' => 'application/ld+json',
@@ -19,9 +22,12 @@ class GreetingsTest extends ApiTestCase
 
         $this->assertResponseStatusCodeSame(201);
         $this->assertJsonContains([
-            '@context' => '/contexts/Greeting',
-            '@type' => 'Greeting',
-            'name' => 'Kévin',
+            '@context' => '/contexts/Student',
+            '@type' => 'Student',
+            'name' => 'Kevin',
+            'surName' => 'Bacon',
+            'address' => '72 boulevard davout',
+            'postalCode' => 75020,
         ]);
     }
 }
